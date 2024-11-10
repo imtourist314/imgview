@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<style>
+	.image {
+		width:600px;
+	}
+</style>
+<script>
+	window.onload = function(){
+		let currentImage = '{{currentImage}}';
+		setImage(currentImage)
+	}
+
+	function setImage(fileName){
+		console.log("Got click for new image : "+fileName);
+		currentImage = fileName;
+		document.getElementById('currentImage').innerHTML = currentImage;
+		document.getElementById('image').src='/image?id='+fileName;
+	}
+</script>
+<head>
+</head
+	<title>ImgView</title>
+	List of Images in: {{dirpath}}
+	<ul>
+	{% for i in range(pathIds|length)%}
+		<li>
+			<a href='#' onclick="setImage('{{fileNames[i]}}');return false;" >
+				{{fileNames[i]}}
+				<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" class="thumb"/>
+			</a>
+		</li>
+  	{% endfor %}
+	</ul>
+	<panel>
+		<!--
+		<img id='image' src="{{ url_for('static',filename='images/') }}" class="image"/>
+		-->
+		<h3>Current Image:<p id='currentImage'></p></h3>
+		<img id='image' class="image"/>
+	</panel>
+</html>
+        
