@@ -20,7 +20,7 @@ port = args.p
 dirpath = args.d
 
 pathIds = [ dirpath+'/'+f for f in listdir(dirpath) if isfile(join(dirpath, f)) and f.upper().endswith('JPG') ]
-fileNames= [ f for f in listdir(dirpath) if isfile(join(dirpath, f))]
+fileNames= [ f for f in listdir(dirpath) if isfile(join(dirpath, f)) and f.upper().endswith('JPG') ]
 
 def generateThumbnail(filePath):
 	im = Image.open(filePath)
