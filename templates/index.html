@@ -29,19 +29,37 @@
 		document.getElementById('currentImage').innerHTML = currentImage;
 		document.getElementById('image').src='/image?id='+fileName;
 	}
+	function searchFunction(){
+		let input = document.getElementById('searchInput');
+		input = input.value.toUpperCase();
+		console.log("Input text is : "+input)
+		imageSelectTable = document.getElementById('imageSelectTable');
+		cells = document.querySelectorAll('[id^="img_"]');
+		for(let i=0;i<cells.length;i++){
+			let text = cells[i].getElementsByTagName('label')[0].innerText
+			if ( text.toUpperCase().indexOf(input) > -1 ){
+				cells[i].style.display = "";
+			} else {
+				cells[i].style.display = "none";
+			}
+		}
+	}
 </script>
 <head>
 {% set numColumns = 15 %}
 </head
 	<title>ImgView</title>
-	<h2>List of Images in: {{dirpath}}</h2>
-	<table>
+	<div style=''>
+		<h2>List of Images in: {{dirpath}}</h2>
+		<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for images.." title="Type in a name" style="height:2em">
+	</div>
+	<table id='imageSelectTable'>
 			<tr>
 	{% for i in range(pathIds|length)%}
 		{% if i> 1 and (i) is divisibleby(numColumns)  %}
 			<tr>
 		{% endif %}
-				<td style="position:relative;vertical-align:top" id="img_{{i}}">
+				<td style="position:relative;vertical-align:top" id="img_{{i}}_{{thumbFileNames[i]}}">
 					<label style="top:2px;left:2px;">{{fileNames[i]}}</label>
 					<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" 
 							onclick="setImage('{{fileNames[i]}}')"
