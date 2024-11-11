@@ -24,7 +24,7 @@ fileNames= [ f for f in listdir(dirpath) if isfile(join(dirpath, f)) and f.upper
 
 def generateThumbnail(filePath):
 	im = Image.open(filePath)
-	im.thumbnail((100,100))
+	im.thumbnail((120,120))
 	thumbFilename = 'thumb_'+filePath.replace('/','%')
 	im.save('./static/images/'+thumbFilename)
 	return thumbFilename

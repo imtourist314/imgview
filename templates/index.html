@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html>
 <style>
+	font body {
+		font-family: 'Anton';
+		font-style: normal;
+		font-weight: 400;
+	}
+	body {
+		font-family: Arial, sans-serif;
+	}
 	.image {
-		width:600px;
+		width:1024px;
+	}
+	table, th, td {
+  		border: 1px solid lightgrey;
+  		border-collapse: collapse;
 	}
 </style>
 <script>
@@ -22,20 +34,27 @@
 </head
 	<title>ImgView</title>
 	List of Images in: {{dirpath}}
-	<ul>
+	<table>
 	{% for i in range(pathIds|length)%}
-		<li>
-			<a href='#' onclick="setImage('{{fileNames[i]}}');return false;" >
-				{{fileNames[i]}}
-				<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" class="thumb"/>
-			</a>
-		</li>
+		{% if i==0 or (i > 1 and (i-1) is divisibleby(15) ) %}
+			<!------------ TR START i={{i}} --------------
+			-->
+			<tr>
+		{% endif %}
+			<td style="position:relative;vertical-align:top">
+				<label style="top:2px;left:2px;">{{fileNames[i]}}</label>
+				<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" 
+						onclick="setImage('{{fileNames[i]}}')"
+						class="thumb"/>
+			</td>
+		{% if i > 0 and (i) is divisibleby(15) %}
+			<!------------ TR END i={{i}} --------------
+			-->
+			</tr>
+		{% endif %}
   	{% endfor %}
-	</ul>
+	</table>
 	<panel>
-		<!--
-		<img id='image' src="{{ url_for('static',filename='images/') }}" class="image"/>
-		-->
 		<h3>Current Image:<p id='currentImage'></p></h3>
 		<img id='image' class="image"/>
 	</panel>
