@@ -31,25 +31,23 @@
 	}
 </script>
 <head>
+{% set numColumns = 15 %}
 </head
 	<title>ImgView</title>
-	List of Images in: {{dirpath}}
+	<h2>List of Images in: {{dirpath}}</h2>
 	<table>
+			<tr>
 	{% for i in range(pathIds|length)%}
-		{% if i==0 or (i > 1 and (i-1) is divisibleby(15) ) %}
-			<!------------ TR START i={{i}} --------------
-			-->
+		{% if i> 1 and (i) is divisibleby(numColumns)  %}
 			<tr>
 		{% endif %}
-			<td style="position:relative;vertical-align:top">
-				<label style="top:2px;left:2px;">{{fileNames[i]}}</label>
-				<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" 
-						onclick="setImage('{{fileNames[i]}}')"
-						class="thumb"/>
-			</td>
-		{% if i > 0 and (i) is divisibleby(15) %}
-			<!------------ TR END i={{i}} --------------
-			-->
+				<td style="position:relative;vertical-align:top" id="img_{{i}}">
+					<label style="top:2px;left:2px;">{{fileNames[i]}}</label>
+					<img id='thumb' src="{{ url_for('static',filename='images/'+thumbFileNames[i]) }}" 
+							onclick="setImage('{{fileNames[i]}}')"
+							class="thumb"/>
+				</td>
+		{% if i > 0 and (i+1) is divisibleby(numColumns) %}
 			</tr>
 		{% endif %}
   	{% endfor %}
