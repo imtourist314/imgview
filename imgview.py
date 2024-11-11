@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import sys
 import PIL
@@ -6,6 +7,11 @@ from os.path import isfile, join
 from flask import Flask,render_template,request,send_from_directory
 import argparse
 from PIL import Image
+
+# change directory where script is installed
+scriptPath = os.path.abspath(__file__)
+dirPath = os.path.dirname(scriptPath)
+os.chdir(dirPath)
 
 os.makedirs("./templates",exist_ok=True)
 os.makedirs("./static/images",exist_ok=True)
